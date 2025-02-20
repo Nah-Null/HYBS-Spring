@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYBS</title>
+    <link rel="stylesheet" href="LS.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16'><text x='0' y='14' font-size='14'>🦐</text></svg>" type="image/svg+xml">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <!-- Login Form -->
+            <div class="col-md-6 form-container" id="login-form">
+                <h2 class="text-center mb-4">Login</h2>
+                <form id="loginForm">
+                    <div class="mb-3">
+                        <label for="login-email" class="form-label">Email:</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login-password" class="form-label">Password:</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" onclick="check_up()">Login</button>
+                </form>
+                <p class="text-center mt-3">Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a></p>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="col-md-6 form-container d-none" id="signup-form">
+                <h2 class="text-center mb-4">Sign Up</h2>
+                <form id="signUpForm">
+                    <div class="mb-3">
+                        <label for="signup-name" class="form-label">Name:</label>
+                        <input type="text" id="signup-name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signup-email" class="form-label">Email:</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        
+                        <label for="signup-password" class="form-label">Password:</label>
+                        <input type="password" id="signup-password" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" onclick="storeInputValues()">Sign Up</button>
+                </form>
+                <p class="text-center mt-3">Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+            </div>
+        </div>
+        
+        <!-- mumber -->
+
+    <div class="col-md-6 form-container d-none" id="Mumber-Form" style="margin: auto;">
+         <h2 class="text-center mb-4">Member</h2>
+        <form id="MumberForm">  
+            <h2 id="name">NULL</h2>
+            <h2 id="email">NULL</h2>
+            
+            <button><a href="home" class="box" style="text-decoration: none;color: white;">HOME</a> </button>
+
+            <button onclick="logout()">
+                <span class="box">
+                    Log out
+                </span>
+            </button>   
+                     
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+
+<div id="Success" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);">
+    <div
+    role="alert"
+    class="bg-green-100 dark:bg-green-500 border-l-4 border-green-500 dark:border-green-700 text-green-900 dark:text-green-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-green-200 dark:hover:bg-green-800 transform hover:scale-105"
+  >
+    <svg
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      fill="none"
+      class="h-5 w-5 flex-shrink-0 mr-2 text-green-600"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        stroke-width="2"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+    <p class="text-xs font-semibold">Success - User added successfully!</p>
+  </div>
+</div>
+
+<div id="SuccessL" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);">
+    <div
+    role="alert"
+    class="bg-green-100 dark:bg-green-500 border-l-4 border-green-500 dark:border-green-700 text-green-900 dark:text-green-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-green-200 dark:hover:bg-green-800 transform hover:scale-105"
+  >
+    <svg
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      fill="none"
+      class="h-5 w-5 flex-shrink-0 mr-2 text-green-600"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        stroke-width="2"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+    <p class="text-xs font-semibold">Success - Login successful!</p>
+  </div>
+</div>
+
+    <div id="Error-EN" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);" >
+        <div
+        role="alert"
+        class="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 text-yellow-900 dark:text-yellow-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-yellow-200 dark:hover:bg-yellow-800 transform hover:scale-105"
+      >
+        <svg
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="h-5 w-5 flex-shrink-0 mr-2 text-yellow-600"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+        <p class="text-xs font-semibold">Error - This email and username are already in use. Please use another email and username.</p>
+  </div>
+    </div>
+
+    <div id="Error-E" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);" >
+        <div
+        role="alert"
+        class="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 text-yellow-900 dark:text-yellow-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-yellow-200 dark:hover:bg-yellow-800 transform hover:scale-105"
+      >
+        <svg
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="h-5 w-5 flex-shrink-0 mr-2 text-yellow-600"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+        <p class="text-xs font-semibold">Error - This email is already in use. Please use another email.</p>
+  </div>
+    </div>
+
+    <div id="Error-N" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);" >
+        <div
+        role="alert"
+        class="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 text-yellow-900 dark:text-yellow-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-yellow-200 dark:hover:bg-yellow-800 transform hover:scale-105"
+      >
+        <svg
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="h-5 w-5 flex-shrink-0 mr-2 text-yellow-600"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+        <p class="text-xs font-semibold">Error - This name is already taken. Please use another name.</p>
+  </div>
+    </div>
+
+
+    <div id="or" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);" >
+        <div
+        role="alert"
+        class="bg-yellow-100 dark:bg-yellow-900 border-l-4 border-yellow-500 dark:border-yellow-700 text-yellow-900 dark:text-yellow-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-yellow-200 dark:hover:bg-yellow-800 transform hover:scale-105"
+      >
+        <svg
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="h-5 w-5 flex-shrink-0 mr-2 text-yellow-600"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+        <p class="text-xs font-semibold">Error - Invalid email or password</p>
+  </div>
+    </div>
+
+
+    <div id="XD" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);" >
+        <div
+        role="alert"
+        class="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 dark:border-red-700 text-red-900 dark:text-red-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-red-200 dark:hover:bg-red-800 transform hover:scale-105"
+      >
+        <svg
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="h-5 w-5 flex-shrink-0 mr-2 text-red-600"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+        <p class="text-xs font-semibold">Error - Something went wrong.</p>
+      </div>
+    </div>
+    </div>
+
+
+
+    <div id="all" class="col-md-3 form-container d-none" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);" >
+        <div
+        role="alert"
+        class="bg-blue-100 dark:bg-blue-900 border-l-4 border-blue-500 dark:border-blue-700 text-blue-900 dark:text-blue-100 p-2 rounded-lg flex items-center transition duration-300 ease-in-out hover:bg-blue-200 dark:hover:bg-blue-800 transform hover:scale-105"
+      >
+        <svg
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          fill="none"
+          class="h-5 w-5 flex-shrink-0 mr-2 text-blue-600"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+        <p class="text-xs font-semibold">
+          Info - Please fill in all fields.
+        </p>
+      </div>
+    </div>
+
+
+    <script src="app.js"></script>
+</body>
+</html>
