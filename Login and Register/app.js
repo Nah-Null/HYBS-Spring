@@ -164,7 +164,7 @@ async function open_member() {
 
     window.location.href = "https://nah-null.github.io/HYBS-Spring/Login%20and%20Register/mumber.html";
 
-    alert();
+    alert(localStorage.getItem('email'));
 
     // document.getElementById('login-email').value = '';
     // document.getElementById('login-password').value = '';
