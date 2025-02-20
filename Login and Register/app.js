@@ -161,8 +161,8 @@ async function check_up() {
 }
 
 async function open_member() {
-    const memberForm = document.getElementById('Mumber-Form');
-    const loginForm = document.getElementById('login-form');
+
+    document.URL = 
 
     loginForm.classList.add('d-none');
     memberForm.classList.remove('d-none');
