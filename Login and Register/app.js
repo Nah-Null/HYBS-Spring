@@ -162,10 +162,7 @@ async function check_up() {
 
 async function open_member() {
 
-    document.URL = "https://nah-null.github.io/HYBS-Spring/Login%20and%20Register/mumber.html";
-
-    loginForm.classList.add('d-none');
-    memberForm.classList.remove('d-none');
+    window.location.href = "https://nah-null.github.io/HYBS-Spring/Login%20and%20Register/mumber.html";
 
     document.getElementById('login-email').value = '';
     document.getElementById('login-password').value = '';
