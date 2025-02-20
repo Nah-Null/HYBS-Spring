@@ -123,7 +123,6 @@ async function check_up() {
     const password = document.getElementById("login-password").value;
 
     localStorage.setItem('email', email);
-    alert(localStorage.getItem('email'));
 
     try {
         const response = await fetch(`http://localhost:4000/users/getByEmail?email=${email}`);
@@ -179,6 +178,8 @@ async function open_member() {
 
         document.getElementById('name').innerText = data.name;
         document.getElementById('email').innerText = data.email;
+        alert(data.name);
+        alert(data.email);
     } catch (error) {
         console.error("Error fetching user data:", error);
     }
